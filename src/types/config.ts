@@ -63,7 +63,8 @@ interface FeaturesConfig {
 
 interface SocialLink {
   /**
-   * Must match an SVG filename in src/assets/icons/socials/.
+   * Matches an SVG filename in src/assets/icons/socials/ when available.
+   * Platforms without an icon are displayed as text links.
    * e.g. "github" → src/assets/icons/socials/github.svg
    */
   name: string;
@@ -96,7 +97,7 @@ interface AstroPaperConfig {
   site: SiteConfig;
   posts?: PostsConfig;
   features?: FeaturesConfig;
-  /** Social profile links shown in header/footer */
+  /** Social profile links shown in the homepage introduction and footer */
   socials?: SocialLink[];
   /** Share links shown on post detail pages */
   shareLinks?: ShareLink[];

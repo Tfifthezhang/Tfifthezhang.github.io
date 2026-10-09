@@ -1,0 +1,32 @@
+---
+import type { MarkdownHeading } from "astro";
+
+type Props = { headings: MarkdownHeading[] };
+const { headings } = Astro.props;
+const hasManualToc = headings.some(heading =>
+  /^(table of contents|目录|文章目录)$/i.test(heading.text)
+);
+const entries = headings.filter(heading => heading.depth <= 4);
+const baseDepth = Math.min(...entries.map(heading => heading.depth));
+---
+
+{
+  entries.length > 0 && !hasManualToc && (
+    <details class="post-toc" open>
+      <summary>Table of Contents</summary>
+      <nav aria-label="Table of Contents">
+        <ul>
+          {entries.map(heading => (
+            <li
+              style={{
+                paddingInlineStart: `${(heading.depth - baseDepth) * 20}px`,
+              }}
+            >
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  )
+}

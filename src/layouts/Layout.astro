@@ -7,6 +7,7 @@ import config from "@/config";
 import "@/styles/global.css";
 
 type Props = {
+  bodyClass?: string;
   title?: string;
   description?: string;
   ogImage?: string;
@@ -16,6 +17,7 @@ type Props = {
 const { site } = config;
 
 const {
+  bodyClass,
   title = site.title,
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
@@ -39,7 +41,6 @@ const rssHref = getRelativeLocaleUrl(
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
-    <link rel="icon" href={getAssetPath("favicon.ico")} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -110,7 +111,10 @@ const rssHref = getRelativeLocaleUrl(
     <ClientRouter />
   </head>
   <body
-    class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
+    class:list={[
+      "bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col",
+      bodyClass,
+    ]}
   >
     <slot />
     <script>

@@ -4,6 +4,9 @@
   /* ===== Override default Tailwind Typography styles ===== */
   .app-prose {
     @apply prose;
+    max-width: none;
+    font-size: 18px;
+    line-height: 1.7;
 
     h1,
     h2,
@@ -13,8 +16,18 @@
       @apply text-foreground mb-3;
     }
 
+    h1 {
+      font-size: 32px;
+    }
+    h2 {
+      font-size: 28px;
+    }
     h3 {
-      @apply italic;
+      font-size: 24px;
+      font-style: normal;
+    }
+    h4 {
+      font-size: 20px;
     }
 
     p,
@@ -28,7 +41,8 @@
     }
 
     a {
-      @apply text-foreground hover:text-accent wrap-break-word decoration-dashed underline-offset-4 focus-visible:no-underline;
+      @apply text-foreground wrap-break-word underline-offset-4 focus-visible:no-underline;
+      text-decoration-style: solid;
     }
 
     ul {
@@ -44,7 +58,8 @@
     }
 
     img {
-      @apply border-border mx-auto border;
+      @apply mx-auto;
+      border-radius: 6px;
     }
 
     img[role="button"] {

@@ -1,0 +1,45 @@
+---
+import config from "@/config";
+
+type Props = {
+  pubDatetime: Date;
+  modDatetime?: Date | null;
+  timezone?: string;
+  author: string;
+  minutes: number;
+};
+
+const { pubDatetime, modDatetime, timezone, author, minutes } = Astro.props;
+const locale = Astro.currentLocale ?? config.site.lang;
+const formatter = new Intl.DateTimeFormat(locale, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: timezone ?? config.site.timezone,
+});
+---
+
+<div class="post-meta">
+  <span
+    >Date: <time datetime={pubDatetime.toISOString()}
+      >{formatter.format(pubDatetime)}</time
+    ></span
+  >
+  <span aria-hidden="true">|</span>
+  <span>Estimated Reading Time: {minutes} min</span>
+  <span aria-hidden="true">|</span>
+  <span>Author: {author}</span>
+  {
+    modDatetime && modDatetime > pubDatetime && (
+      <>
+        <span aria-hidden="true">|</span>
+        <span>
+          Updated:{" "}
+          <time datetime={modDatetime.toISOString()}>
+            {formatter.format(modDatetime)}
+          </time>
+        </span>
+      </>
+    )
+  }
+</div>
